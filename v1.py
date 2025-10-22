@@ -3,12 +3,9 @@ from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 
-# -----------------------
-# Load Dataset
-# -----------------------
 df = pd.read_csv("StudentsPerformance.csv")
 
-# Features & Target
+
 X = df.drop(columns=["GRADE", "STUDENT ID", "COURSE ID"])
 y = df["GRADE"]
 

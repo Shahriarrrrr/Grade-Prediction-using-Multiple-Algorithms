@@ -3,6 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from imblearn.over_sampling import SMOTE
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # -----------------------
 # Load Dataset
@@ -32,8 +34,24 @@ model.fit(X_train, y_train)
 # Predictions
 y_pred = model.predict(X_test)
 
+# -----------------------
+# Evaluation
+# -----------------------
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, y_pred))
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+
+# -----------------------
+# Improved Confusion Matrix Visualization
+# -----------------------
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+            xticklabels=sorted(y.unique()),
+            yticklabels=sorted(y.unique()))
+plt.xlabel("Predicted Grade", fontsize=12)
+plt.ylabel("Actual Grade", fontsize=12)
+plt.title("Confusion Matrix - Random Forest + SMOTE", fontsize=14)
+plt.tight_layout()
+plt.show()
